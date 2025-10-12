@@ -2,9 +2,10 @@
 
 # A simple script to put data, create policies, and enable the AppRole auth method in Vault.
 # This script assumes you have direct access to the Vault CLI.
+VM_IP="$(./detect_vm_ip.sh || echo 127.0.0.1)"
 
 # --- Set Vault Address and Token ---
-export VAULT_ADDR='http://192.168.65.131:18200'
+export VAULT_ADDR="http://${VM_IP}:18200"
 export VAULT_TOKEN='root'
 
 
@@ -77,11 +78,11 @@ for customer in "${customer_names[@]}"; do
 done
 
 # --- Hardcoded Credentials ---
-NEXUS_URL="http://192.168.65.131:18081"
+NEXUS_URL="http://${VM_IP}:18081"
 NEXUS_USER="nadmin"
 NEXUS_PASSWORD="nadmin123"
 
-JENKINS_URL="http://192.168.65.131:8080"
+JENKINS_URL="http://${VM_IP}:8080"
 JENKINS_USER="jadmin"
 JENKINS_PASSWORD="jadmin123"
 
