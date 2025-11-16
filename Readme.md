@@ -49,8 +49,8 @@ This repository provides automation scripts to deploy a complete development env
 - **Kubernetes CLI (kubectl)**: v1.25+
 - **Helm**: v3.8+
 - **Kind**: v0.20+
-- **System Resources**: ≥ 8GB RAM, 4 CPU cores
-- **OS**: Linux/macOS (tested on Ubuntu 22.04)
+- **System Resources**: ≥ 16GB RAM, 8 CPU cores
+- **OS**: Linux/macOS (tested on Ubuntu 25.04)
 
 ### Install Tools
 
@@ -319,7 +319,7 @@ kubectl get svc -n monitoring
 ## 🔒 Security Notes
 
 - Dev mode Vault: No encryption/TLS; secrets lost on restart.
-- Credentials: Change defaults (`admin123` for Jenkins/Nexus).
+- Credentials: Change defaults (`admin123` for Jenkins/Nexus/Prometheus).
 - Exposure: Use firewall to restrict ports.
 
 ---
@@ -339,7 +339,6 @@ MIT License. See [LICENSE](LICENSE).
 ## 📞 Support
 
 - Issues: GitHub.
-- Questions: Check troubleshooting first.
 
 ---
 
