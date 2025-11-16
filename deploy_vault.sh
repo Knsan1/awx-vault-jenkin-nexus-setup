@@ -5,6 +5,8 @@ NAMESPACE="vault"
 DEFAULT_FORWARD_PORT=18200
 VM_IP="$(./detect_vm_ip.sh || echo 127.0.0.1)"
 
+VAULT_CHART_VERSION="0.31.0"
+
 need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing required command: $1"; exit 1; }; }
 need kubectl; need helm;
 
@@ -21,6 +23,7 @@ helm repo update
 echo "[Vault] Install (dev mode)..."
 helm upgrade --install vault hashicorp/vault \
   --namespace "${NAMESPACE}" \
+  --version "$VAULT_CHART_VERSION" \
   --set "server.dev.enabled=true" \
   --wait --timeout 10m
 

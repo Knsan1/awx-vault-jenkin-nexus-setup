@@ -5,6 +5,8 @@ NAMESPACE="jenkins"
 DEFAULT_JENKINS_PORT=8080
 DEFAULT_AGENT_PORT=50000
 
+JENKINS_CHART_VERSION="5.8.110" 
+
 VM_IP="$(./detect_vm_ip.sh || echo 127.0.0.1)"
 
 need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing required command: $1"; exit 1; }; }
@@ -24,6 +26,7 @@ helm repo update
 echo "[Jenkins] Install Jenkins via Helm..."
 helm upgrade --install jenkins jenkins/jenkins \
   --namespace "${NAMESPACE}" \
+  --version "$JENKINS_CHART_VERSION" \
   --set controller.serviceType=ClusterIP \
   --set controller.jenkinsUrl="http://${VM_IP}:${DEFAULT_JENKINS_PORT}" \
   --wait --timeout 15m

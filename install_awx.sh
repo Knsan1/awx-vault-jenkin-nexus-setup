@@ -5,6 +5,8 @@ NAMESPACE="awx"
 RELEASE_NAME="awx"
 DEFAULT_HOST_PORT=8081
 
+AWX_OPERATOR_CHART_VERSION="3.2.0" 
+
 # Detect VM IP
 VM_IP=$(./detect_vm_ip.sh || echo "127.0.0.1")
 echo "Using VM IP: $VM_IP"
@@ -18,12 +20,13 @@ create_namespace() {
 # Function: install AWX operator
 install_operator() {
   echo "[Step 2] Add Helm repo..."
-  helm repo add awx-operator https://ansible.github.io/awx-operator/ || true
+  helm repo add awx-operator https://ansible-community.github.io/awx-operator-helm/ || true
   helm repo update
 
   echo "[Step 3] Install AWX Operator via Helm..."
   helm upgrade --install awx-operator awx-operator/awx-operator \
     --namespace $NAMESPACE \
+    --version "$AWX_OPERATOR_CHART_VERSION" \
     --set serviceAccount.name=awx-operator
 }
 

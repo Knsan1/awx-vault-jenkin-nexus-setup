@@ -287,6 +287,33 @@ If stuck, open an issue with logs/output.
     └── Nexus/Registry (5000/18081)
 ```
 
+### Deploy Prometheus (Extra Step)
+
+You can deploy extra Prometheus with a single command by running the deployment script:
+
+```bash
+./deploy_prometheus.sh
+```
+
+This script will:
+
+1. Create the `monitoring` namespace.
+2. Install Prometheus and Grafana using Helm with your custom `prometheus-values.yml`.
+3. Set up access via NodePort or port-forwarding for Grafana and Prometheus dashboards.
+
+**Verify deployment:**
+
+```bash
+kubectl get pods -n monitoring
+kubectl get svc -n monitoring
+```
+
+**Cleanup (if needed):**
+
+```bash
+./clean_prometheus.sh
+```
+
 ---
 
 ## 🔒 Security Notes

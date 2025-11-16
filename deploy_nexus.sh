@@ -6,6 +6,8 @@ DEFAULT_FORWARD_PORT=18081
 VM_IP="$(./detect_vm_ip.sh || echo 127.0.0.1)"
 SERVICE_NAME="nexus"
 
+NEXUS_CHART_VERSION="64.2.0"
+
 need() { command -v "$1" >/dev/null 2>&1 || { echo "Missing required command: $1"; exit 1; }; }
 need kubectl; need helm;
 
@@ -22,6 +24,7 @@ helm repo update
 echo "[Nexus] Install Nexus via Helm..."
 helm upgrade --install "${SERVICE_NAME}" sonatype/nexus-repository-manager \
   --namespace "${NAMESPACE}" \
+  --version "$NEXUS_CHART_VERSION" \
   --set "nexus.livenessProbe.failureThreshold=10" \
   --set "nexus.readinessProbe.failureThreshold=10" \
   --set "persistence.enabled=false" \
